@@ -10,8 +10,102 @@
     <main class="container">
         <header>
             <h1>GENERADOR DE HORARIOS</h1>
-            <p class="description">Este sencillo sitio web te permite generar posibles horarios para el semestre académico, teniendo en cuenta tu disponibilidad de tiempo y las materias que necesitas cursar.</p>
+            <p class="description">Este sencillo sitio web te permite generar posibles horarios para el semestre
+                académico, teniendo en cuenta tu disponibilidad de tiempo y las materias que necesitas cursar.</p>
         </header>
+        <div class="main-grid">
+            <div class="card">
+                <h2>
+                    MI DISPONIBILIDAD
+                </h2>
+                <p class="card-description">En este apartado debes seleccionar los días y horarios en los que estás
+                    disponible para asistir a la universidad. Los horarios se mostrarán en bloques de 1 hora.</p>
+
+                <div class="time-selector">
+                    <span class="day-label">Lunes</span>
+                    <div class="time-range">
+                        <div class="time-input">
+                            <input type="time" value="10:00">
+                        </div>
+                        <span class="time-divider">a</span>
+                        <div class="time-input">
+                            <input type="time" value="16:00">
+                        </div>
+                    </div>
+                    <input type="checkbox" name="monday" id="monday" checked>
+                </div>
+
+                <div class="time-selector">
+                    <span class="day-label">Martes</span>
+                    <div class="time-range">
+                        <div class="time-input">
+                            <input type="time" value="09:00">
+                        </div>
+                        <span class="time-divider">a</span>
+                        <div class="time-input">
+                            <input type="time" value="17:00">
+                        </div>
+                    </div>
+                    <input type="checkbox" name="tuesday" id="tuesday" checked>
+                </div>
+
+                <div class="time-selector">
+                    <span class="day-label">Miércoles</span>
+                    <div class="time-range">
+                        <div class="time-input">
+                            <input type="time" value="09:00">
+                        </div>
+                        <span class="time-divider">a</span>
+                        <div class="time-input">
+                            <input type="time" value="16:00">
+                        </div>
+                    </div>
+                    <input type="checkbox" name="wednesday" id="wednesday" checked>
+                </div>
+
+                <div class="time-selector">
+                    <span class="day-label">Jueves</span>
+                    <div class="time-range">
+                        <div class="time-input">
+                            <input type="time" value="10:00">
+                        </div>
+                        <span class="time-divider">a</span>
+                        <div class="time-input">
+                            <input type="time" value="17:00">
+                        </div>
+                    </div>
+                    <input type="checkbox" name="thursday" id="thursday" checked>
+                </div>
+
+                <div class="time-selector">
+                    <span class="day-label">Viernes</span>
+                    <div class="time-range">
+                        <div class="time-input">
+                            <input type="time" value="09:00">
+                        </div>
+                        <span class="time-divider">a</span>
+                        <div class="time-input">
+                            <input type="time" value="15:00">
+                        </div>
+                    </div>
+                    <input type="checkbox" name="friday" id="friday" checked>
+                </div>
+
+                <div class="time-selector">
+                    <span class="day-label">Sábado</span>
+                    <div class="time-range">
+                        <div class="time-input">
+                            <input type="time" value="08:00">
+                        </div>
+                        <span class="time-divider">a</span>
+                        <div class="time-input">
+                            <input type="time" value="12:00">
+                        </div>
+                    </div>
+                    <input type="checkbox" name="saturday" id="saturday" checked>
+                </div>
+            </div>
+        </div>
     </main>
 </body>
 </html>
