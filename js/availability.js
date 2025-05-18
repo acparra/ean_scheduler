@@ -21,6 +21,28 @@ function saveAvailability(day, type, value) {
     localStorage.setItem('availability', JSON.stringify(availability));
 }
 
+function loadSavedAvailability() {
+    const availability = getSavedAvailability();
+    
+    Object.entries(DAYS).forEach(([day, ids]) => {
+        const dayData = availability[day];
+        if (dayData) {
+
+            if (dayData.start) {
+                document.getElementById(ids.start).value = dayData.start;
+            }
+            if (dayData.end) {
+                document.getElementById(ids.end).value = dayData.end;
+            }
+
+            const checkbox = document.getElementById(day);
+            if (checkbox) {
+                checkbox.checked = dayData.enabled;
+            }
+        }
+    });
+}
+
 function handleTimeChange(day, type, event) {
     const value = event.target.value;
     saveAvailability(day, type, value);
@@ -51,3 +73,4 @@ function initializeAvailabilityHandlers() {
 }
 
 initializeAvailabilityHandlers();
+loadSavedAvailability();
