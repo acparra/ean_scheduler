@@ -3,6 +3,7 @@ import subjectsData from './subjects_data.js';
 const searchInput = document.querySelector('.search-input');
 const dropdown = document.querySelector('.custom-dropdown');
 const minCharsMessage = document.querySelector('.min-chars-message');
+const tbody = document.querySelector('tbody');
 const MIN_CHARS = 6;
 
 function normalizeText(text) {
@@ -56,6 +57,7 @@ function createDropdownOption(subject) {
         searchInput.value = subject.name;
         dropdown.style.display = 'none';
         saveSubject(subject);
+        updateSubjectsTable()
     });
     
     return option;
@@ -70,6 +72,36 @@ function saveSubject(subject) {
 
     savedSubjects[subject.name] = subject
     localStorage.setItem("subjects", JSON.stringify(savedSubjects))
+}
+
+function updateSubjectsTable(){
+    for (let i = tbody.children.length - 1; i >= 0; i--) {
+        const trow = tbody.children[i];
+    
+        trow.remove();
+    }
+
+    let savedSubjects = {}
+
+    if (localStorage.getItem("subjects")){
+        savedSubjects = JSON.parse(localStorage.getItem("subjects"))
+    }
+
+    for (let key in savedSubjects){
+        let subject = savedSubjects[key]
+
+        const row = document.createElement('tr');
+        row.className = 'subject-row';
+        
+        row.innerHTML = `
+            <td>${subject.name}</td>
+            <td>${subject.credits}</td>
+            <td>${subject.duration}</td>
+            <td><a href="#" class="action-link">Eliminar</a></td>
+        `;
+        
+        tbody.appendChild(row);
+    };
 }
 
 searchInput.addEventListener('focus', () => {
@@ -87,3 +119,5 @@ document.addEventListener('click', (e) => {
         dropdown.style.display = 'none';
     }
 });
+
+updateSubjectsTable()
