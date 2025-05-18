@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Header section
 - Availability section
     - Save
+    - Load
 - Subjects section
     - Search
     - Add
