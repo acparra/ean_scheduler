@@ -300,3 +300,178 @@ th {
         font-size: 0.9rem;
     }
 }
+
+.schedules-section {
+    margin-top: 40px;
+    display: none;
+}
+
+.schedules-section h2 {
+    color: var(--primary);
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 1.8rem;
+}
+
+.schedule-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.schedule-tabs {
+    max-width: 100%;
+    display: flex;
+    overflow-y: auto;
+    gap: 10px;
+    padding-bottom:5px;
+}
+
+.schedule-tabs::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.schedule-tabs::-webkit-scrollbar-track {
+    background: var(--neutral-light);
+    border-radius: 4px;
+}
+
+.schedule-tabs::-webkit-scrollbar-thumb {
+    background: var(--neutral-dark);
+    border-radius: 4px;
+}
+
+.schedule-tabs::-webkit-scrollbar-thumb:hover {
+    background: var(--dark);
+}
+
+
+.schedule-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.tab-btn {
+    padding: 10px 20px;
+    background-color: var(--neutral);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.tab-btn.active {
+    background-color: var(--primary);
+    color: white;
+}
+
+.action-btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.2s;
+}
+
+.save-btn {
+    background-color: var(--info);
+    color: white;
+}
+
+.save-btn:hover {
+    background-color: #3b5bd9;
+}
+
+.print-btn {
+    background-color: var(--neutral-dark);
+    color: white;
+}
+
+.print-btn:hover {
+    background-color: #5a6268;
+}
+
+.export-btn {
+    background-color: var(--success);
+    color: white;
+}
+
+.export-btn:hover {
+    background-color: #218838;
+}
+
+.schedule-grid {
+    display: grid;
+    grid-template-columns: auto repeat(6, 1fr);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+    grid-auto-rows: minmax(100px, auto);
+    overflow-x: auto;
+}
+
+.grid-header {
+    background-color: var(--primary);
+    color: white;
+    padding: 15px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.time-block {
+    background-color: var(--primary-light);
+    color: var(--dark);
+    padding: 15px 10px;
+    text-align: center;
+    font-weight: 500;
+    border-bottom: 1px solid white;
+}
+
+.schedule-cell {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid var(--neutral);
+    background-color: white;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.9rem;
+    position: relative;
+}
+
+.schedule-cell.has-class {
+    background-color: var(--primary-light);
+    border: 1px solid var(--primary);
+    margin: -1px;  
+    z-index: 1;    
+}
+
+.schedule-cell.has-class[style*="display: none"] {
+    display: none !important;
+}
+
+.subject-name {
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 4px;
+}
+
+.subject-group {
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 4px;
+}
+
+.subject-time {
+    font-size: 0.8rem;
+    color: var(--neutral-dark);
+}

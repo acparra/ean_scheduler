@@ -139,9 +139,32 @@
             </div>
         </div>
         <button class="generate-btn">Generar</button>
+        <div class="schedules-section">
+            <h2>HORARIOS GENERADOS</h2>
+            
+            <div class="schedule-controls">
+                <div class="schedule-tabs">
+                </div>
+                                
+                <div class="schedule-actions" style="margin-left:15px">
+                    <button class="action-btn save-btn" id="save-image-btn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        Guardar imagen
+                    </button>
+                </div>
+            </div>
+            
+            <div class="schedule-grid" id="schedule-grid">
+            </div>
+        </div>
     </main> 
 
     <script src="js/subjects.js" type="module"></script>
     <script src="js/availability.js" type="module"></script>
+    <script src="js/schedules.js" type="module"></script>
 </body>
 </html>
