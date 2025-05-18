@@ -74,6 +74,17 @@ function saveSubject(subject) {
     localStorage.setItem("subjects", JSON.stringify(savedSubjects))
 }
 
+function deleteSubject(subjectName) {
+    let savedSubjects = {}
+
+    if (localStorage.getItem("subjects")){
+        savedSubjects = JSON.parse(localStorage.getItem("subjects"))
+    }
+
+    delete savedSubjects[subjectName]
+    localStorage.setItem("subjects", JSON.stringify(savedSubjects))
+}
+
 function updateSubjectsTable(){
     for (let i = tbody.children.length - 1; i >= 0; i--) {
         const trow = tbody.children[i];
@@ -99,6 +110,12 @@ function updateSubjectsTable(){
             <td>${subject.duration}</td>
             <td><a href="#" class="action-link">Eliminar</a></td>
         `;
+
+        row.querySelector('.action-link').addEventListener('click', (e) => {
+            e.preventDefault();
+            deleteSubject(subject.name)
+            row.remove();
+        });
         
         tbody.appendChild(row);
     };
