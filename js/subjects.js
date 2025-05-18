@@ -50,8 +50,26 @@ function createDropdownOption(subject) {
     const option = document.createElement('div');
     option.className = 'dropdown-option';
     option.textContent = subject.name;
+
+    option.addEventListener('click', () => {
+        console.log("click")
+        searchInput.value = subject.name;
+        dropdown.style.display = 'none';
+        saveSubject(subject);
+    });
     
     return option;
+}
+
+function saveSubject(subject) {
+    let savedSubjects = {}
+
+    if (localStorage.getItem("subjects")){
+        savedSubjects = JSON.parse(localStorage.getItem("subjects"))
+    }
+
+    savedSubjects[subject.name] = subject
+    localStorage.setItem("subjects", JSON.stringify(savedSubjects))
 }
 
 searchInput.addEventListener('focus', () => {
