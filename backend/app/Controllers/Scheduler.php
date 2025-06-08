@@ -77,7 +77,12 @@ class Scheduler extends ResourceController
         $schedulableGroups = [];
         foreach ($relevantCourseGroups as $group) {
             if (isset($schedulesByGroupId[$group['id']]) && !empty($schedulesByGroupId[$group['id']])) {
-                $group['schedules'] = $schedulesByGroupId[$group['id']];
+                $groupScheduleSlots = $schedulesByGroupId[$group['id']];
+                foreach ($groupScheduleSlots as $key => $slot) {
+                    $groupScheduleSlots[$key]['parent_start_date'] = $group['start_date'];
+                    $groupScheduleSlots[$key]['parent_end_date'] = $group['end_date'];
+                }
+                $group['schedules'] = $groupScheduleSlots;
                 $schedulableGroups[] = $group;
             }
         }
@@ -266,6 +271,20 @@ class Scheduler extends ResourceController
         return $finalSchedule;
     }
 
+    private function dateRangesOverlap(string $startA, string $endA, string $startB, string $endB): bool
+    {
+        $tsStartA = strtotime($startA);
+        $tsEndA = strtotime($endA);
+        $tsStartB = strtotime($startB);
+        $tsEndB = strtotime($endB);
+
+        if ($tsStartA === false || $tsEndA === false || $tsStartB === false || $tsEndB === false) {
+            return false;
+        }
+
+        return ($tsStartA <= $tsEndB) && ($tsEndA >= $tsStartB);
+    }
+
     // Funcion auxiliar para detectar conflictos entre dos conjuntos de horarios
     private function hasTimeConflict(array $timeSlots1, array $timeSlots2): bool
     {
@@ -273,11 +292,36 @@ class Scheduler extends ResourceController
 
         foreach ($timeSlots1 as $slot1) {
             foreach ($timeSlots2 as $slot2) {
+                $performFullTimeCheck = true;
+
+                if (isset($slot1['parent_start_date'], $slot1['parent_end_date'], $slot2['parent_start_date'], $slot2['parent_end_date']) &&
+                    !empty($slot1['parent_start_date']) && !empty($slot1['parent_end_date']) &&
+                    !empty($slot2['parent_start_date']) && !empty($slot2['parent_end_date'])) {
+                    
+                    if ($this->dateRangesOverlap(
+                        $slot1['parent_start_date'], $slot1['parent_end_date'],
+                        $slot2['parent_start_date'], $slot2['parent_end_date']
+                    )) {
+
+                    } else {
+
+                        $performFullTimeCheck = false;
+                    }
+                }
+
+                if (!$performFullTimeCheck) {
+                    continue;
+                }
+
                 if ($slot1['day_of_week'] === $slot2['day_of_week']) {
                     $startA = strtotime($slot1['start_time']);
                     $endA = strtotime($slot1['end_time']);
                     $startB = strtotime($slot2['start_time']);
                     $endB = strtotime($slot2['end_time']);
+
+                    if ($startA === false || $endA === false || $startB === false || $endB === false) {
+                        continue;
+                    }
 
                     if ($startA < $endB && $startB < $endA) { 
                         return true;
