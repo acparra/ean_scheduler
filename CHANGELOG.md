@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Database tables creation and seeding
 - Database models
 - Courses search controller
+- Schedules generation
 
 ## 1.0.0
 
