@@ -12,39 +12,73 @@ function normalizeText(text) {
         .toLowerCase();
 }
 
-function updateDropdown(searchTerm) {
+async function updateDropdown(searchTerm) {
+    // Clear previous options except the min-chars message
     for (let i = dropdown.children.length - 1; i >= 0; i--) {
         const option = dropdown.children[i];
-    
         if (option.classList.contains("min-chars-message")) {
             continue;
         }
-    
         option.remove();
     }
 
     if (searchTerm.length < MIN_CHARS) {
         minCharsMessage.textContent = 'Escribe al menos 6 caracteres para ver resultados';
         minCharsMessage.style.display = 'block';
-
-        return;
-    } 
-
-    minCharsMessage.style.display = 'none';
-
-    const filteredSubjects = subjectsData.filter(subject => 
-        normalizeText(subject.name).includes(searchTerm)
-    );
-
-    if (filteredSubjects.length === 0) {
-        minCharsMessage.textContent = 'No se encontraron resultados';
-        minCharsMessage.style.display = 'block';
+        dropdown.style.display = 'block'; // Show dropdown to display message
         return;
     }
-    
-    filteredSubjects.forEach(subject => {
-        dropdown.appendChild(createDropdownOption(subject));
-    });
+
+    minCharsMessage.style.display = 'none'; // Hide message by default
+
+    try {
+        const response = await fetch(`../backend/public/courses/search?q=${encodeURIComponent(searchTerm)}`);
+        
+        if (!response.ok) {
+            let errorText = `Error cargando las materias`;
+
+            minCharsMessage.textContent = errorText;
+            minCharsMessage.style.display = 'block';
+            dropdown.style.display = 'block';
+            return;
+        }
+
+        const courses = await response.json();
+
+        if (!courses || courses.length === 0) {
+            minCharsMessage.textContent = 'No se encontraron materias';
+            minCharsMessage.style.display = 'block';
+        } else {
+            courses.forEach(course => {
+                let duration = "Indefinido"
+
+                console.log("upper: ", course.course_type.toUpperCase())
+                switch (course.course_type.toUpperCase()){
+                    case "SEMESTRE":
+                    duration = "Semestre"
+                    break;
+                    case "CICLO":
+                    duration = "Ciclo"
+                    break;
+                }
+
+                const subjectForOption = {
+                    name: course.course_name, 
+                    code: course.course_code,
+                    credits: course.credits,
+                    duration: duration,
+                };
+                dropdown.appendChild(createDropdownOption(subjectForOption));
+            });
+        }
+        dropdown.style.display = 'block';
+
+    } catch (error) {
+        console.error('Error fetching course suggestions:', error);
+        minCharsMessage.textContent = 'Error de red al buscar materias.';
+        minCharsMessage.style.display = 'block';
+        dropdown.style.display = 'block';
+    }
 }
 
 function createDropdownOption(subject) {
@@ -53,7 +87,6 @@ function createDropdownOption(subject) {
     option.textContent = subject.name;
 
     option.addEventListener('click', () => {
-        console.log("click")
         searchInput.value = subject.name;
         dropdown.style.display = 'none';
         saveSubject(subject);
