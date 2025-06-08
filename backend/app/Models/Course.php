@@ -18,7 +18,8 @@ class Course extends Model
         'credits',
         'faculty',
         'typology',
-        'academic_period'
+        'academic_period',
+        'course_type' // Added course_type
     ];
 
     // Dates
