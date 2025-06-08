@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Courses search controller
 - Schedules generation
 - Usage of search controller in frontend
+- Usage of scheduler generation in frontend
 
 ## 1.0.0
 
