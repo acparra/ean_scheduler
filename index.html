@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Horarios EAN</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="container">
+        <header>
+            <h1>GENERADOR DE HORARIOS</h1>
+            <p class="description">Este sencillo sitio web te permite generar posibles horarios para el semestre
+                académico, teniendo en cuenta tu disponibilidad de tiempo y las materias que necesitas cursar.</p>
+        </header>
+        <div class="main-grid">
+            <div class="card">
+                <h2>
+                    MI DISPONIBILIDAD
+                </h2>
+                <p class="card-description">En este apartado debes seleccionar los días y horarios en los que estás
+                    disponible para asistir a la universidad. Los horarios se mostrarán en bloques de 1 hora.</p>
+
+                <div class="time-selector">
+                    <span class="day-label">Lunes</span>
+                    <div class="time-range">
+                        <div class="time-input">
+                            <input type="time" id="mondayStartTime">
+                        </div>
+                        <span class="time-divider">a</span>
+                        <div class="time-input">
+                            <input type="time" id="mondayEndTime">
+                        </div>
+                    </div>
+                    <input type="checkbox" name="monday" id="monday" checked>
+                </div>
+
+                <div class="time-selector">
+                    <span class="day-label">Martes</span>
+                    <div class="time-range">
+                        <div class="time-input">
+                            <input type="time" id="tuesdayStartTime">
+                        </div>
+                        <span class="time-divider">a</span>
+                        <div class="time-input">
+                            <input type="time" id="tuesdayEndTime">
+                        </div>
+                    </div>
+                    <input type="checkbox" name="tuesday" id="tuesday" checked>
+                </div>
+
+                <div class="time-selector">
+                    <span class="day-label">Miércoles</span>
+                    <div class="time-range">
+                        <div class="time-input">
+                            <input type="time" id="wednesdayStartTime">
+                        </div>
+                        <span class="time-divider">a</span>
+                        <div class="time-input">
+                            <input type="time" id="wednesdayEndTime">
+                        </div>
+                    </div>
+                    <input type="checkbox" name="wednesday" id="wednesday" checked>
+                </div>
+
+                <div class="time-selector">
+                    <span class="day-label">Jueves</span>
+                    <div class="time-range">
+                        <div class="time-input">
+                            <input type="time" id="thursdayStartTime">
+                        </div>
+                        <span class="time-divider">a</span>
+                        <div class="time-input">
+                            <input type="time" id="thursdayEndTime">
+                        </div>
+                    </div>
+                    <input type="checkbox" name="thursday" id="thursday" checked>
+                </div>
+
+                <div class="time-selector">
+                    <span class="day-label">Viernes</span>
+                    <div class="time-range">
+                        <div class="time-input">
+                            <input type="time" id="fridayStartTime">
+                        </div>
+                        <span class="time-divider">a</span>
+                        <div class="time-input">
+                            <input type="time" id="fridayEndTime">
+                        </div>
+                    </div>
+                    <input type="checkbox" name="friday" id="friday" checked>
+                </div>
+
+                <div class="time-selector">
+                    <span class="day-label">Sábado</span>
+                    <div class="time-range">
+                        <div class="time-input">
+                            <input type="time" id="saturdayStartTime">
+                        </div>
+                        <span class="time-divider">a</span>
+                        <div class="time-input">
+                            <input type="time" id="saturdayEndTime">
+                        </div>
+                    </div>
+                    <input type="checkbox" name="saturday" id="saturday" checked>
+                </div>
+            </div>
+            <div class="card">
+                <h2>
+                    MIS MATERIAS
+                </h2>
+                <p class="card-description">En este apartado debes seleccionar las materias que tienes interés en cursar durante el semestre.</p>
+                
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="Buscar materias...">
+                    <div class="search-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                    </div>
+                    <div class="custom-dropdown">
+                        <div class="min-chars-message">Escribe al menos 6 caracteres para ver resultados</div>
+                    </div>
+                </div>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Materia</th>
+                            <th>Créditos</th>
+                            <th>Duración</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <button class="generate-btn">Generar</button>
+        <div class="schedules-section">
+            <h2>HORARIOS GENERADOS</h2>
+            
+            <div class="schedule-controls">
+                <div class="schedule-tabs">
+                </div>
+                                
+                <div class="schedule-actions" style="margin-left:15px">
+                    <button class="action-btn save-btn" id="save-image-btn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        Guardar imagen
+                    </button>
+                </div>
+            </div>
+            
+            <div class="schedule-grid" id="schedule-grid">
+            </div>
+        </div>
+    </main> 
+
+    <script src="js/subjects.js" type="module"></script>
+    <script src="js/availability.js" type="module"></script>
+    <script src="js/schedules.js" type="module"></script>
+</body>
+</html>
