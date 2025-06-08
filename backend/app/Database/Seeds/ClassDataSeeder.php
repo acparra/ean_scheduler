@@ -146,10 +146,10 @@ class ClassDataSeeder extends Seeder
                         'course_id' => $courseId,
                         'group_code' => $groupCode,
                         'group_name' => $fullGroupNameForDb,
-                        'offer_type' => $offerType,
+                        // 'offer_type' => $offerType, // Columna eliminada
                         'start_date' => $startDate,
                         'end_date' => $endDate,
-                        'academic_period' => $academicPeriod,
+                        // 'academic_period' => $academicPeriod, // Columna eliminada
                     ];
                     $this->db->table('course_groups')->insert($groupData);
                     $groupId = $this->db->insertID();
@@ -175,7 +175,7 @@ class ClassDataSeeder extends Seeder
                                 'day_of_week' => $dayName,
                                 'start_time' => $startTime,
                                 'end_time' => $endTime,
-                                'location' => $location,
+                                // 'location' => $location, // Columna eliminada
                             ];
                             $this->db->table('course_group_schedules')->insert($scheduleData);
                             $insertedSchedules++;
