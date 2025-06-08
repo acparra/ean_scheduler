@@ -99,6 +99,17 @@ class ClassDataSeeder extends Seeder
             $startTime = $this->formatTime($startTimeStr, $rowCount);
             $endTime = $this->formatTime($endTimeStr, $rowCount);
 
+            // Determine course_type from offerType
+            $courseTypeForDb = null;
+            if (!empty($offerType)) {
+                $firstCharOfferType = strtoupper(substr($offerType, 0, 1));
+                if ($firstCharOfferType === 'C') {
+                    $courseTypeForDb = 'CICLO';
+                } elseif ($firstCharOfferType === 'S') {
+                    $courseTypeForDb = 'SEMESTRE';
+                }
+            }
+
             $courseId = null;
             if (isset($coursesCache[$courseCode])) {
                 $courseId = $coursesCache[$courseCode];
@@ -114,6 +125,7 @@ class ClassDataSeeder extends Seeder
                         'faculty' => $faculty,
                         'typology' => $typology,
                         'academic_period' => $academicPeriod,
+                        'course_type' => $courseTypeForDb, 
                     ];
                     $this->db->table('courses')->insert($courseData);
                     $courseId = $this->db->insertID();
