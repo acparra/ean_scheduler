@@ -74,6 +74,14 @@ class ClassDataSeeder extends Seeder
             $endDateStr = $row[22];
             $startTimeStr = $row[23];
             $endTimeStr = $row[24];
+          
+            $baseCourseName = '';
+            if (!empty($groupName)) {
+                $potentialBase = substr($groupName, 0, strlen($groupName) - 5);
+                $baseCourseName = trim($potentialBase);
+            }
+
+            $fullGroupNameForDb = $groupName ?: 'Grupo no especificado';
 
             if (empty($courseCode)) {
                 echo "Skipping row #{$rowCount} due to missing or empty 'CODIGO UNIDAD DE ESTUDIO'. Group: '{$groupCode}'.\n";
@@ -84,18 +92,6 @@ class ClassDataSeeder extends Seeder
                 echo "Skipping row #{$rowCount} due to missing or empty 'CODIGO DEL GRUPO'. Course: '{$courseCode}'.\n";
                 $skippedRowCount++;
                 continue;
-            }
-
-            $courseName = $groupName; 
-            if ($courseCode && $groupName && strpos($groupName, $courseCode) !== false) {
-                $parts = explode($courseCode, $groupName);
-                $potentialName = trim($parts[0]);
-                if (!empty($potentialName) && strlen($potentialName) > 3) { 
-                     $courseName = $potentialName;
-                }
-            }
-            if (empty($courseName)) { 
-                $courseName = $groupName ?: 'Nombre de curso no especificado';
             }
 
             $startDate = $this->formatDate($startDateStr, $rowCount);
@@ -113,7 +109,7 @@ class ClassDataSeeder extends Seeder
                 } else {
                     $courseData = [
                         'course_code' => $courseCode,
-                        'course_name' => $courseName,
+                        'course_name' => $baseCourseName,
                         'credits' => $credits,
                         'faculty' => $faculty,
                         'typology' => $typology,
@@ -137,7 +133,7 @@ class ClassDataSeeder extends Seeder
                     $groupData = [
                         'course_id' => $courseId,
                         'group_code' => $groupCode,
-                        'group_name' => $groupName ?: 'Grupo no especificado',
+                        'group_name' => $fullGroupNameForDb,
                         'offer_type' => $offerType,
                         'start_date' => $startDate,
                         'end_date' => $endDate,
